@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+        .incorrecto {
+            color: red;
+            border: 1px solid red;
+        }
+
+        .correcto {
+            color: green;
+            border: default;
+        }
+    </style>
+
+    <script>
+
+      window.addEventListener("DOMContentLoaded", () => {
+
+
+        //no se puede copiar ni
+
+        document.querySelector("#clave").addEventListener("copy", (evt) => {
+          evt.preventDefault();
+        });
+
+        document.querySelector("#clave").addEventListener("paste", (evt) => {
+          evt.preventDefault();
+        });
+
+        document.querySelector("#repite").addEventListener("copy", (evt) => {
+          evt.preventDefault();
+        });
+
+        document.querySelector("#repite").addEventListener("paste", (evt) => {
+          evt.preventDefault();
+        });
+
+
+        document.querySelector('button').addEventListener("click", () => {
+
+       
+
+const letramay = new RegExp("(?=.*?[A-Z])");
+const letramin = new RegExp("(?=.*?[a-z])");
+const digito = new RegExp("(?=.*?[0-9])");
+const especial = new RegExp("(?=.*?[=#?!@$%^&*-])");
+const longitud = new RegExp(".{8,}");
+const p = document.querySelector('#clave').value;
+let expresiones = [letramay, letramin, digito, especial, longitud];
+console.log(expresiones);
+let valido = true;
+
+expresiones.forEach((v, k) => {
+    console.log(v.test(p));
+    if (!v.test(p)) {
+        valido = false;
+        document.querySelector(`li:nth-child(${k + 1})`).classList.add("incorrecto");
+        document.querySelector(`li:nth-child(${k + 1})`).classList.remove("correcto");
+    } else {
+        document.querySelector(`li:nth-child(${k + 1})`).classList.add("correcto");
+        document.querySelector(`li:nth-child(${k + 1})`).classList.remove("incorrecto");
+    }
+
+
+})
+
+
+//claves son iguales 
+
+
+let valido2 = false; 
+
+let contra = document.querySelector('#clave').value;
+
+let repite = document.querySelector('#repite').value;
+
+
+
+if (contra==repite){
+
+    valido2=true;
+}else{
+
+    valido2=false;
+}
+
+
+let valido3 = false;
+
+const inObj = document.querySelector("#mail");
+
+
+if (inObj.checkValidity()) {
+
+     valido3 = true;
+    
+
+}else{
+
+  valido3 = false;
+
+}
+
+
+
+
+
+if(valido&&valido2&&valido3){
+
+    document.querySelector('form').submit();
+
+}
+
+
+
+
+
+
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <form  method="post">
+      <label for="mail">introduce mail:</label
+      ><input type="email" id="mail" required/><br />
+
+      <label for="clave">contraseña:</label
+      ><input type="password" id="clave" required/><br />
+
+      <label for="repite">Repetir contraseña</label
+      ><input type="password" id="repite"required /><br />
+
+      <button type="button">validar</button>
+
+      
+
+    </form>
+
+    <ul>
+        <li>Mayúscula</li>
+        <li>Minúscula</li>
+        <li>Dígito</li>
+        <li>Especial #?!@$%^&*-</li>
+        <li>8 caracteres o más</li>
+    </ul>
+  </body>
+</html>
