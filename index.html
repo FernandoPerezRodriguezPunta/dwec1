@@ -44,8 +44,6 @@
 
         document.querySelector('button').addEventListener("click", () => {
 
-       
-
 const letramay = new RegExp("(?=.*?[A-Z])");
 const letramin = new RegExp("(?=.*?[a-z])");
 const digito = new RegExp("(?=.*?[0-9])");
@@ -115,7 +113,34 @@ if(valido&&valido2&&valido3){
 
     document.querySelector('form').submit();
 
+    notificar("iniciar sesión");
+
 }
+
+
+
+function notificar(msg) {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    let notification = new Notification(document.title, {
+                        body: `inicio de sesión correcto" ${msg} \n ${String.fromCodePoint(0x1F60E)}`,
+                        icon: "favicon.ico"
+                    });
+                } else {
+                    alert(`No puedes ${msg} \n ${String.fromCodePoint(0x1F60E)}`)
+                }
+            });
+        }
+        function quitarevt(evt) {
+            evt.preventDefault();
+            notificar(evt.type);
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('#pass1, #pass2').forEach(e => {
+                e.addEventListener("copy", quitarevt);
+                e.addEventListener("paste", quitarevt);
+            });
+        });
 
 
 
